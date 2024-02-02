@@ -14,10 +14,21 @@ class Product(models.Model):
     name = models.CharField(max_length=200,null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False,null=True,blank=False)
+    image = models.ImageField(null=True, blank=True)
+
 
     def __str__(self):
         return self.name # return string value
-    
+
+    @property # to handle if no image was provided
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = 'images/placeholder.png'
+        return url
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True) # means customer can have many orders
     date_ordered = models.DateTimeField(auto_now_add=True)
