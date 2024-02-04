@@ -8,9 +8,22 @@ def store(request):
     return render(request,'store/store.html',context)
 
 def cart(request):
-    context = {}
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False) # get an object otherwise creates it 
+        items = order.orderitem_set.all()
+    else:
+        items = []
+    context = {'items':items, 'order':order}
     return render(request,'store/cart.html',context)
 
 def checkout(request):
-    context = {}
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False) # get an object otherwise creates it 
+        items = order.orderitem_set.all()
+    else:
+        items = []
+    context = {'items':items, 'order':order}
     return render(request,'store/checkout.html',context)

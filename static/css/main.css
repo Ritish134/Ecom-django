@@ -89,10 +89,11 @@ h6 {
     display: inline-block;
     font-weight: 700;
     padding-right: 10px;
+    font-size: 15px;
 }
 
 .chg-quantity {
-    width: 12px;
+    width: 20px;
     cursor: pointer;
     display: block;
     margin-top: 5px;
